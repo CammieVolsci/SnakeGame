@@ -1,0 +1,13 @@
+1. Movimento da cobra //ok
+2. Fazer sair do outro lado quando encostar na parede //ok
+3. Por comida //ok
+    3.1 Comer a comida //ok
+    3.2 Aumentar a pontuação
+    3.3 Aumentar a cauda
+    3.4 Fazer colisão com a cauda
+4. Fazer tela de game over
+5. Fazer tela inicial
+    5.1 Fazer botão de resetar
+    5.2 Fazer tela de pontuação máxima
+6. Por som 
+7. Mudar assets [?]
