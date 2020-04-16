@@ -5,15 +5,18 @@ FOOD_IMAGE = "assets/food.png"
 
 class snake(pygame.sprite.Sprite):
     
-    def __init__(self):
+    def __init__(self,x,y,direcao):
         super().__init__()
-        self.x = 440
-        self.y = 330
+        self.x = x
+        self.y = y
         self.mover_x = 0
         self.mover_y = 0
-        self.direcao = "direita"
+        self.direcao = direcao
         self.image = pygame.image.load(SNAKE_IMAGE)    
         self.rect = self.image.get_rect() 
+
+    def desenha_cobra(self,screen):       
+        screen.blit(self.image,(self.x,self.y))   
 
     def movimento(self,screen):       
         self.x += self.mover_x
@@ -53,7 +56,7 @@ class food(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y    
     
-    def desenhar_comida(self, screen):
+    def desenhar_comida(self,screen):
         screen.blit(self.image,(self.x,self.y))         
 
     def gerar_comida(self,screen):               
