@@ -13,12 +13,13 @@ class snake(pygame.sprite.Sprite):
         self.mover_y = 0
         self.direcao = direcao
         self.image = pygame.image.load(SNAKE_IMAGE)    
-        self.rect = self.image.get_rect() 
+        self.rect = self.image.get_rect()
+        self.dead = False
 
     def desenha_cobra(self,screen):       
         screen.blit(self.image,(self.x,self.y))   
 
-    def movimento(self,screen):       
+    def movimento_cabeca(self,screen):       
         self.x += self.mover_x
         self.y += self.mover_y
         screen.blit(self.image,(self.x,self.y))
@@ -26,18 +27,27 @@ class snake(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y 
 
-        if self.x <= 0:
-            self.x = 750
-        elif self.x >= 750:
-            self.x = 0
+        if self.x <= 5:
+            self.x = 5
+            self.mover_x = 0
+            self.dead = True
+        elif self.x + 50 >= 795:
+            self.x = 745
+            self.mover_x = 0
+            self.dead = True
 
-        if self.y <= 0:
-            self.y = 600
-        elif self.y >= 600:
-            self.y = 0
+        if self.y <= 5:
+            self.y = 5
+            self.mover_y = 0
+            self.dead = True
+        elif self.y + 50 >= 645:
+            self.y = 595
+            self.mover_y = 0
+            self.dead = True
 
         self.rect.x = self.x
-        self.rect.y = self.y      
+        self.rect.y = self.y     
+
 
     def teste_colisao(self,sprite):
         if(self.image!=0):
@@ -49,18 +59,23 @@ class food(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.x = random.randint(25,775) 
-        self.y = random.randint(25,625)
+        self.x = random.randint(50,750) 
+        self.y = random.randint(50,600)
         self.image = pygame.image.load(FOOD_IMAGE)
         self.rect = self.image.get_rect() 
         self.rect.x = self.x
-        self.rect.y = self.y    
+        self.rect.y = self.y   
+        self.boa_localizacao = False
     
     def desenhar_comida(self,screen):
         screen.blit(self.image,(self.x,self.y))         
 
     def gerar_comida(self,screen):               
-        self.x = random.randint(25,775) 
-        self.y = random.randint(25,625) 
+        self.x = random.randint(50,750) 
+        self.y = random.randint(50,600) 
         self.rect.x = self.x
         self.rect.y = self.y 
+
+    def teste_colisao(self,sprite):
+        if(self.image!=0):
+            return self.rect.colliderect(sprite.rect)   

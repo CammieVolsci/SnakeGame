@@ -2,9 +2,11 @@
 2. Fazer sair do outro lado quando encostar na parede //ok
 3. Por comida //ok
     3.1 Comer a comida //ok
-    3.2 Aumentar a pontuação
-    3.3 Aumentar a cauda
-    3.4 Fazer colisão com a cauda
+    3.2 Aumentar a pontuação //ok
+    3.3 Aumentar a cauda //ok
+    3.4 Fazer a comida não gerar na cauda //ok
+    3.5 Fazer colisão com a cauda //ok
+3.A Refatorar o código
 4. Fazer tela de game over
 5. Fazer tela inicial
     5.1 Fazer botão de resetar
