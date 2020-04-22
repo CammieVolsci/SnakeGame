@@ -6,10 +6,9 @@
     3.3 Aumentar a cauda //ok
     3.4 Fazer a comida não gerar na cauda //ok
     3.5 Fazer colisão com a cauda //ok
-3.A Refatorar o código
-4. Fazer tela de game over
-5. Fazer tela inicial
-    5.1 Fazer botão de resetar
-    5.2 Fazer tela de pontuação máxima
-6. Por som 
+4. Fazer tela de game over //ok
+5. Fazer tela inicial //ok
+    5.1 Fazer botão de resetar //ok
+    5.2 Fazer tela de pontuação máxima //nvrmind
+6. Por som //nvrmind
 7. Mudar assets [?]

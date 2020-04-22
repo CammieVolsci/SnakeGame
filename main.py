@@ -8,7 +8,7 @@ WINDOW_HEIGHT = 650
 BACKGROUND_COLOR = (255,255,255)
 
 DISPLAYSURF = None
-PONTUACAO = 1
+PONTUACAO = 0
 TAMANHO_COBRA = 1
 
 ## MAIN ##
@@ -29,13 +29,17 @@ def main():
     
     while True:
         DISPLAYSURF.fill(BACKGROUND_COLOR)
-        gameOverSurf = BASICFONT.render('Game Over',True,(0,0,0))
+        pontuacao_txt = str(PONTUACAO)      
+        gameOverSurf = BASICFONT.render('Game Over :< Pontuacao: ' + pontuacao_txt,True,(0,0,0))
         gameOverRect = gameOverSurf.get_rect()
         gameOverRect.center = (400, 325)  
+        resetSurf = BASICFONT.render('Pressione R para reiniciar ',True,(0,0,0))
+        resetRect = gameOverSurf.get_rect()
+        resetRect.center = (400, 400)  
 
         if jogador[0].dead:
             DISPLAYSURF.blit(gameOverSurf,gameOverRect)
-            main()
+            DISPLAYSURF.blit(resetSurf,resetRect)
 
         movimenta_cabeca_cobra(jogador)
         jogador[0].movimento_cabeca(DISPLAYSURF)
@@ -55,28 +59,31 @@ def main():
         FPSCLOCK.tick(FPS)  
 
 def movimenta_cabeca_cobra(jogador):
-    global TAMANHO_COBRA
+    global TAMANHO_COBRA, PONTUACAO
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.display.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN and not jogador[0].dead:                           
-            if event.key == pygame.K_LEFT:
+        if event.type == pygame.KEYDOWN :     
+            if event.key == pygame.K_r:
+                reset_jogo(jogador)
+            elif event.key == pygame.K_LEFT and not jogador[0].dead:
                 if TAMANHO_COBRA == 1 or (TAMANHO_COBRA > 1 and jogador[1].direcao != "direita"):    
                     jogador[0].mover_x = -50
                     jogador[0].mover_y = 0
                     jogador[0].direcao = "esquerda"
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and not jogador[0].dead:
                 if TAMANHO_COBRA == 1 or (TAMANHO_COBRA > 1 and jogador[1].direcao != "esquerda"):
                     jogador[0].mover_x = 50
                     jogador[0].mover_y = 0    
                     jogador[0].direcao = "direita"
-            elif event.key == pygame.K_UP:
+            elif event.key == pygame.K_UP and not jogador[0].dead:
                 if TAMANHO_COBRA == 1 or (TAMANHO_COBRA > 1 and jogador[1].direcao != "baixo"):
                     jogador[0].mover_y = -50
                     jogador[0].mover_x = 0
                     jogador[0].direcao = "cima"
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and not jogador[0].dead:
                 if TAMANHO_COBRA == 1 or (TAMANHO_COBRA > 1 and jogador[1].direcao != "cima"):
                     jogador[0].mover_y = 50 
                     jogador[0].mover_x = 0
@@ -89,19 +96,15 @@ def movimenta_cauda_cobra(jogador):
         jogador[i].direcao = jogador[i-1].direcao
         jogador[i].x = jogador[i-1].x
         jogador[i].y = jogador[i-1].y
-
         jogador[i].rect.x =  jogador[i].x  
         jogador[i].rect.y =  jogador[i].y   
 
 def cria_cauda_cobra(jogador,comida):
-
     global PONTUACAO, TAMANHO_COBRA
 
-    if jogador[0].teste_colisao(comida):
-        
+    if jogador[0].teste_colisao(comida):      
         PONTUACAO = PONTUACAO + 10     
         comida.boa_localizacao = False   
-
         if jogador[TAMANHO_COBRA-1].direcao == "esquerda":
             jogador.append(actors.snake(jogador[TAMANHO_COBRA-1].x+50,jogador[TAMANHO_COBRA-1].y,"esquerda"))
             TAMANHO_COBRA += 1
@@ -123,7 +126,17 @@ def cria_cauda_cobra(jogador,comida):
             comida.gerar_comida(DISPLAYSURF)
             for i in range(TAMANHO_COBRA):    
                 if jogador[i].teste_colisao(comida):      
-                    comida.boa_localizacao = False                             
+                    comida.boa_localizacao = False    
+
+def reset_jogo(jogador):                          
+    global TAMANHO_COBRA, PONTUACAO
+
+    jogador.clear()
+    TAMANHO_COBRA = 1
+    PONTUACAO = 0
+    for i in range(TAMANHO_COBRA):
+        jogador.append(actors.snake(400,350,"esquerda"))   
+
 
 ## MAIN ##
 if __name__ == '__main__':
