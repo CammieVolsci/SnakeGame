@@ -42,7 +42,8 @@ def main():
             DISPLAYSURF.blit(resetSurf,resetRect)
 
         movimenta_cabeca_cobra(jogador)
-        jogador[0].movimento_cabeca(DISPLAYSURF)
+        jogador[0].movimento_cabeca()
+        jogador[0].desenhar(DISPLAYSURF)
 
         if TAMANHO_COBRA > 1:
             for i in range(1,TAMANHO_COBRA):
@@ -51,7 +52,7 @@ def main():
                     jogador[0].mover_y = 0
                     jogador[0].dead = True
 
-        comida.desenhar_comida(DISPLAYSURF)       
+        comida.desenhar(DISPLAYSURF)       
         cria_cauda_cobra(jogador,comida)
         movimenta_cauda_cobra(jogador)           
 
@@ -59,7 +60,7 @@ def main():
         FPSCLOCK.tick(FPS)  
 
 def movimenta_cabeca_cobra(jogador):
-    global TAMANHO_COBRA, PONTUACAO
+    global TAMANHO_COBRA
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -92,7 +93,7 @@ def movimenta_cabeca_cobra(jogador):
 def movimenta_cauda_cobra(jogador):
 
     for i in range(TAMANHO_COBRA-1, 0, -1):
-        jogador[i].desenha_cobra(DISPLAYSURF)
+        jogador[i].desenhar(DISPLAYSURF)
         jogador[i].direcao = jogador[i-1].direcao
         jogador[i].x = jogador[i-1].x
         jogador[i].y = jogador[i-1].y
@@ -123,7 +124,7 @@ def cria_cauda_cobra(jogador,comida):
 
         while(not comida.boa_localizacao):
             comida.boa_localizacao = True
-            comida.gerar_comida(DISPLAYSURF)
+            comida.gerar()
             for i in range(TAMANHO_COBRA):    
                 if jogador[i].teste_colisao(comida):      
                     comida.boa_localizacao = False    
