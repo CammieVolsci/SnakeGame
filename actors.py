@@ -16,12 +16,13 @@ class snake(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.dead = False
 
-    def desenhar(self,screen):       
+    def desenha_cobra(self,screen):       
         screen.blit(self.image,(self.x,self.y))   
 
-    def movimento_cabeca(self):       
+    def movimento_cabeca(self,screen):       
         self.x += self.mover_x
         self.y += self.mover_y
+        screen.blit(self.image,(self.x,self.y))
 
         self.rect.x = self.x
         self.rect.y = self.y 
@@ -47,6 +48,7 @@ class snake(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y     
 
+
     def teste_colisao(self,sprite):
         if(self.image!=0):
             return self.rect.colliderect(sprite.rect)   
@@ -65,10 +67,10 @@ class food(pygame.sprite.Sprite):
         self.rect.y = self.y   
         self.boa_localizacao = False
     
-    def desenhar(self,screen):
+    def desenhar_comida(self,screen):
         screen.blit(self.image,(self.x,self.y))         
 
-    def gerar(self):               
+    def gerar_comida(self,screen):               
         self.x = random.randint(50,750) 
         self.y = random.randint(50,600) 
         self.rect.x = self.x

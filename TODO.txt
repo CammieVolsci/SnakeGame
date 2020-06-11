@@ -12,9 +12,3 @@
     5.2 Fazer tela de pontuação máxima //nvrmind
 6. Por som //nvrmind
 7. Mudar assets [?]
-
-*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
-
-1. Refatorar o código
-2. Mudar assets
-3. Por som
